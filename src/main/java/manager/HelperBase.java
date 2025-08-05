@@ -49,14 +49,16 @@ public class HelperBase {
         WebElement we = wd.findElement(locator);
         return we != null;
     }
+
+
+}
 //   public boolean containsText(By locator,String text){
 //        WebElement we = wd.findElement(locator);
 //        return we.getText().contains(text);
 //
 //   }
+//    public boolean checkXButton(By locator, String text) {
+//        WebElement we = wd.findElement(locator);
+//        return we.getAttribute("class").contains(text);
+//    }
 
-    public boolean checkXButton(By locator, String text) {
-        WebElement we = wd.findElement(locator);
-        return we.getAttribute("class").contains(text);
-    }
-}

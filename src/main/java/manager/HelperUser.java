@@ -13,37 +13,23 @@ public class HelperUser extends HelperBase {
         clearDate(By.id("password"));
     }
 
-    public void openLoginRegistrationForm() {
+    public void openLoginForm() {
         click(By.cssSelector("a[href='/login?url=%2Fsearch']"));
     }
 
-    public void openRegistrationForm() {
-        click(By.cssSelector("a[href='/registration?url=%2Fsearch']"));
-    }
 
-    public void fillLoginRegistrationForm(String email, String password) {
-        type(By.id("email"), email);
-        type(By.id("password"), password);
-    }
+    public void fillLoginForm(String email, String password) {
 
-    public void fillRegistrationForm(String name, String lastName, String email, String password) {
-        type(By.id("name"), name);
-        type(By.id("lastName"), lastName);
-        type(By.id("email"), email);
-        type(By.id("password"), password);
-        submitXButton();
-    }
-
-    public void submitXButton() {//*[@id='terms-of-use']
-        click(By.xpath("//label[contains(text(),'I agree to the')]['/label']"));
+        type(By.xpath("//input[@id='email']"), email);
+        type(By.xpath("//input[@id='password']"), password);
     }
 
     public void submitLogin() {
-        click(By.xpath("//button[text()='Y’alla!']"));
+        click(By.xpath("//button[@type='submit']"));
     }
 
     public void submitOk() {
-        click(By.xpath("//*[@class='positive-button ng-star-inserted']"));
+        click(By.xpath("//button[text()='Ok']"));
     }
 
     public boolean loginResult() {
@@ -62,7 +48,4 @@ public class HelperUser extends HelperBase {
         return buttonLoginDisabled(By.xpath("//*[@disabled]"));
     }
 
-    public boolean isXButtonClicked() {
-        return checkXButton(By.xpath("//*[@class='ng-dirty ng-touched ng-valid']"), "ng-dirty ng-touched ng-valid");
-    }
 }
