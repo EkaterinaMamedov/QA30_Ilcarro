@@ -21,6 +21,10 @@ public class HelperBase {
 
     }
 
+    public void click(By locator) {
+        wd.findElement(locator).click();
+    }
+
     public void type(By locator, String text) {
         WebElement we = wd.findElement(locator);
         we.click();
@@ -30,14 +34,16 @@ public class HelperBase {
         }
     }
 
-    public void click(By locator) {
-        WebElement we = wd.findElement(locator);
-        we.click();
+    public void pause(int time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public boolean isElementPresent(By locator) {
-        List<WebElement> list = wd.findElements(locator);
-        return list.size() > 0;
+        return wd.findElements(locator).size() > 0;
     }
 
     public boolean loginSuccessOrFailed(By locator) {
