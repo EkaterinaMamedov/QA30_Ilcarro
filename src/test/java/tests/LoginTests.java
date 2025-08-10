@@ -53,6 +53,7 @@ public class LoginTests extends TestBase {
         app.getHelperUser().openLoginForm();
         app.getHelperUser().fillLoginForm(user);
         Assert.assertEquals(app.getHelperUser().messageFormInputEmailContainer(), "It\'snot look like email");
+        Assert.assertTrue(app.getHelperUser().buttonLoginOff());
         Assert.assertFalse(app.getHelperUser().isLogged());
     }
 
@@ -64,6 +65,7 @@ public class LoginTests extends TestBase {
         app.getHelperUser().submit();
         Assert.assertEquals(app.getHelperUser().getMessage(), "\"Login or Password incorrect\"");
         Assert.assertFalse(app.getHelperUser().isLogged());
+
     }
 
     @Test
@@ -72,6 +74,7 @@ public class LoginTests extends TestBase {
         app.getHelperUser().openLoginForm();
         app.getHelperUser().fillLoginForm(user);
         Assert.assertEquals(app.getHelperUser().messageFormInputEmailContainer(), "Email is required");
+        Assert.assertTrue(app.getHelperUser().buttonLoginOff());
         Assert.assertFalse(app.getHelperUser().isLogged());
     }
 
@@ -93,6 +96,7 @@ public class LoginTests extends TestBase {
         app.getHelperUser().fillLoginForm(user);
         app.getHelperUser().click(By.id("email"));
         Assert.assertEquals(app.getHelperUser().messageFormInputPasswordContainer(), "Password is required");
+        Assert.assertTrue(app.getHelperUser().buttonLoginOff());
         Assert.assertFalse(app.getHelperUser().isLogged());
     }
 

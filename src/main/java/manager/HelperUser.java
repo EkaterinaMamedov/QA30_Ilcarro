@@ -3,7 +3,6 @@ package manager;
 import models.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 
 public class HelperUser extends HelperBase {
@@ -72,7 +71,7 @@ public class HelperUser extends HelperBase {
         click(By.xpath("//*[@href='/logout?url=%2Fsearch']"));
     }
 
-    public boolean buttonLogin() {
+    public boolean buttonLoginOff() {
         return buttonLoginDisabled(By.xpath("//*[@disabled]"));
     }
 
