@@ -1,10 +1,9 @@
 package manager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import java.util.List;
 
 public class HelperBase {
 
@@ -29,9 +28,15 @@ public class HelperBase {
         WebElement we = wd.findElement(locator);
         we.click();
         we.clear();
+        clearNew(we);
         if (text != null) {
             we.sendKeys(text);
         }
+    }
+
+    public void clearNew(WebElement element) {
+        element.sendKeys(" ");
+        element.sendKeys(Keys.BACK_SPACE);
     }
 
     public void pause(int time) {
@@ -46,25 +51,24 @@ public class HelperBase {
         return wd.findElements(locator).size() > 0;
     }
 
-    public boolean loginSuccessOrFailed(By locator) {
-        WebElement we = wd.findElement(locator);
-        return we.getText().contains("Logged in");
+    public boolean buttonSubmitDisabled(By locator) {
+        boolean res = isElementPresent(By.cssSelector("button[disabled]"));
+        //******************************
+        WebElement element = wd.findElement(By.cssSelector("button[type='submit']"));
+        boolean result = element.isEnabled();
+
+        return res && !result;
     }
-
-    public boolean buttonLoginDisabled(By locator) {
+        public boolean checkXButton(By locator, String text) {
         WebElement we = wd.findElement(locator);
-        return we != null;
+        return we.getAttribute("class").contains(text);
     }
-
-
 }
+
 //   public boolean containsText(By locator,String text){
 //        WebElement we = wd.findElement(locator);
 //        return we.getText().contains(text);
 //
 //   }
-//    public boolean checkXButton(By locator, String text) {
-//        WebElement we = wd.findElement(locator);
-//        return we.getAttribute("class").contains(text);
-//    }
+
 

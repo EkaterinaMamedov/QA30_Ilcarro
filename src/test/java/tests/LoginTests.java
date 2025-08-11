@@ -52,8 +52,8 @@ public class LoginTests extends TestBase {
         User user = new User().setEmail("tmmmmmttttgmail.com").setPassword("Qwerty!12");
         app.getHelperUser().openLoginForm();
         app.getHelperUser().fillLoginForm(user);
-        Assert.assertEquals(app.getHelperUser().messageFormInputEmailContainer(), "It\'snot look like email");
-        Assert.assertTrue(app.getHelperUser().buttonLoginOff());
+        Assert.assertEquals(app.getHelperUser().getErrorText(), "It\'snot look like email");
+        Assert.assertTrue(app.getHelperUser().buttonSubmitOff());
         Assert.assertFalse(app.getHelperUser().isLogged());
     }
 
@@ -73,8 +73,8 @@ public class LoginTests extends TestBase {
         User user = new User().setEmail("").setPassword("Qwerty!12");
         app.getHelperUser().openLoginForm();
         app.getHelperUser().fillLoginForm(user);
-        Assert.assertEquals(app.getHelperUser().messageFormInputEmailContainer(), "Email is required");
-        Assert.assertTrue(app.getHelperUser().buttonLoginOff());
+        Assert.assertEquals(app.getHelperUser().getErrorText(), "Email is required");
+        Assert.assertTrue(app.getHelperUser().buttonSubmitOff());
         Assert.assertFalse(app.getHelperUser().isLogged());
     }
 
@@ -94,9 +94,8 @@ public class LoginTests extends TestBase {
         User user = new User().setEmail("tmmmmmtttt@gmail.com").setPassword("");
         app.getHelperUser().openLoginForm();
         app.getHelperUser().fillLoginForm(user);
-        app.getHelperUser().click(By.id("email"));
-        Assert.assertEquals(app.getHelperUser().messageFormInputPasswordContainer(), "Password is required");
-        Assert.assertTrue(app.getHelperUser().buttonLoginOff());
+        Assert.assertEquals(app.getHelperUser().getErrorText(), "Password is required");
+        Assert.assertTrue(app.getHelperUser().buttonSubmitOff());
         Assert.assertFalse(app.getHelperUser().isLogged());
     }
 
@@ -111,10 +110,8 @@ public class LoginTests extends TestBase {
     }
 
     @AfterMethod
-    public void afterCondition() {
-        if (app.getHelperUser().getMessage() != null) {
-            app.getHelperUser().submitOk();
-        }
+    public void postCondition() {
+        app.getHelperUser().submitOk();
         if (!app.getHelperUser().isLogged()) {
             app.getHelperUser().clearForm();
         }

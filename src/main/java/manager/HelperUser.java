@@ -1,9 +1,8 @@
 package manager;
 
 import models.User;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 
 public class HelperUser extends HelperBase {
     public HelperUser(WebDriver wd) {
@@ -45,23 +44,18 @@ public class HelperUser extends HelperBase {
     }
 
     public void submitOk() {
-
-        click(By.xpath("//button[text()='Ok']"));
+        if (isElementPresent(By.xpath("//button[text()='Ok']"))) {
+            click(By.xpath("//button[text()='Ok']"));
+        }
 
     }
 
-    public String messageFormInputEmailContainer() {
+    public String getErrorText() {
         pause(7000);
-        return wd.findElement(By.cssSelector("form > div:nth-child(1) > div")).getText();
+        return wd.findElement(By.cssSelector("div.error")).getText();
 
     }
 
-
-    public String messageFormInputPasswordContainer() {
-        pause(7000);
-        return wd.findElement(By.cssSelector("form > div:nth-child(2) > div")).getText();
-
-    }
 
     public boolean isLogged() {
         return isElementPresent(By.xpath("//*[@href='/logout?url=%2Fsearch']"));
@@ -71,8 +65,8 @@ public class HelperUser extends HelperBase {
         click(By.xpath("//*[@href='/logout?url=%2Fsearch']"));
     }
 
-    public boolean buttonLoginOff() {
-        return buttonLoginDisabled(By.xpath("//*[@disabled]"));
+    public boolean buttonSubmitOff() {
+        return buttonSubmitDisabled(By.xpath("//*[@disabled]"));
     }
 
     //------------------registration---------------------------
@@ -92,5 +86,20 @@ public class HelperUser extends HelperBase {
         // click(By.xpath("//label[@for='terms-of-use']"));
         JavascriptExecutor js = (JavascriptExecutor) wd;
         js.executeScript("document.querySelector('#terms-of-use').click()");
+    }
+
+    public void checkPolicyXY() {
+        WebElement label = wd.findElement(By.cssSelector("label[for='terms-of-use']"));
+        Rectangle rect = label.getRect();
+        int w = rect.getWidth();
+
+        // Dimension size = wd.manage().window().getSize();
+
+        int xOffSet = -w / 2;
+        Actions actions = new Actions(wd);
+        actions.moveToElement(label, xOffSet, 0).click().release().perform();
+    }
+    public boolean xButtonOff() {
+        return buttonSubmitDisabled(By.xpath("//*[@class='ng-dirty ng-touched ng-invalid']"));
     }
 }
